@@ -19,16 +19,11 @@ interface Category {
   name: string
 }
 
-interface Tag {
-  id: number
-  name: string
-}
 
 export default function EditPost({ params }: { params: { id: string } }) {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
   const [categories, setCategories] = useState<Category[]>([])
-  const [tags, setTags] = useState<Tag[]>([])
   const [post, setPost] = useState({
     title: '',
     slug: '',
@@ -76,24 +71,6 @@ export default function EditPost({ params }: { params: { id: string } }) {
       }
     }
 
-    const fetchTags = async () => {
-      try {
-        const response = await fetch('/api/tags')
-        if (response.ok) {
-          const data = await response.json()
-          setTags(data)
-        } else {
-          throw new Error('Failed to fetch tags')
-        }
-      } catch (error) {
-        console.error('Error fetching tags:', error)
-        toast({ title: 'Failed to fetch tags', variant: 'destructive' })
-      }
-    }
-
-    Promise.all([fetchPost(), fetchCategories(), fetchTags()]).then(() => {
-      setIsLoading(false)
-    })
   }, [params.id])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
