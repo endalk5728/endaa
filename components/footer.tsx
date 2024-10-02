@@ -28,7 +28,6 @@ export default function Footer() {
     const { advertisements } = useAdvertisements();
     const footerAds = advertisements.filter(ad => ad.placement === 'footer' && ad.is_active);
   const [footerPages, setFooterPages] = useState<Pages[]>([]);
-  const [email, setEmail] = useState('');
   const [aboutUs, setAboutUs] = useState<AboutUs | null>(null);
   const [socialMedia, setSocialMedia] = useState<SocialMediaItem[]>([]);
 
